@@ -63,8 +63,14 @@ temp=$type
 while true; do
 echo "\"ba\" for Blue Archive"
 echo "\"l\" to see available entries"
+echo "Last value: $type"
 echo
 read -p "Stash/" -r type
+
+if [[ -z $type ]]; then
+  type=$temp
+  break
+fi
 
 type=${type,,}
 
