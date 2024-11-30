@@ -1,266 +1,160 @@
 #/bin/bash
 
+# Todo:
+# Option to also copy
+# Option to rename file before moving/copying
+
+# Done:
+# Made per question files
+# better code quality
+# more variables for better adaptability
+
+# program file paths
+folder="/home/$USER/.cache/sorter"
+pathQuestion="pathquestion.sh"
+imageViewer="view.sh"
+targetFile="targetfile.sh"
+safetyQuestion="safety.sh"
+typeQuestion="typequestion.sh"
+schoolQuestion="school.sh"
+characterQuestion="characterquestion.sh"
+extraQuestion="extraquestion.sh"
+
 file="image.jpg"
 safety="SFW"
 character="none"
 extra=""
 stashpath="/home/$USER/Pictures/Stash"
-temp="" # To have a remember feature
+temp="" # Used for read variable (usually)
 path="" # Working directory path
 type="blue archive"
+school="not specified"
+
+update_paths() {
+# Read paths
+readWorkdir="path/"
+readTargetFile="Target file: "
+  readShowFile="File to show: "
+readSafety="Stash/"
+readType="Stash/$safety/"
+  readSchool="Stash/$safety/$type/"
+readCharacter="Stash/$safety/$type/$school/"
+readExtra="Stash/$safety/$type/$school/$character/"
+
+# Move paths
+schoolMove="$stashpath/$safety/$type/$school/$character/"
+schoolMoveExtra="$stashpath/$safety/$type/$school/$character/$extra"
+withExtra="$stashpath/$safety/$type/$character/$extra"
+noExtra="$stashpath/$safety/$type/$character/"
+
+# tree paths
+# these don't work so they are not currently in use
+#treeTypeList="$stashpath/$safety/"
+#treeSchoolList="$staspath/$safety/$type/"
+#treeCraracterList="$stashpath/$safety/$type/"
+#treeExtra="$stashpath/$safety/$type/$character/"
+}
+update_paths
 
 clear
 
-pwd
-echo
-echo "Type working directory path here."
-echo "(Uses cd /home/\$USER/[Your path here])"
-echo "If this path is fine press enter."
-echo
-read -p "Path: " -r path
-
-if [[ -z $path ]]; then
-  echo
-else
-  cd /home/$USER/$path
-fi
-
-clear
-while true; do
-
-# Target file
-ls -p -1A | grep -v / # Lists all files in current folder (Does seem to also list subfolders)
-echo
-echo "Select file from above"
-echo
-read -p "Target file: " -r file
-clear
-
-kitten icat --place 60x20@0x0 *$file*
-
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-
-temp=$type
-while true; do
-echo "\"ba\" for Blue Archive"
-echo "\"l\" to see available entries"
-echo "Last value: $type"
-echo
-read -p "Stash/" -r type
-
-if [[ -z $type ]]; then
-  type=$temp
-  break
-fi
-
-type=${type,,}
-
-case "$type" in
-  ba) type="blue archive"
-    break
-  ;;
-  l|list)
-    clear
-    tree -L 1 $stashpath/
-    echo
-  ;;
-  *) break
-  ;;
-esac
-done
-
-clear
-
-kitten icat --place 60x20@0x0 *$file*
-
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-
-temp=$character
+# path question program
+. $folder/$pathQuestion
+# $path set
 
 while true; do
 
-# Character
-echo
-echo "Select folder (usually by character)"
-echo "Will create a new folder if one is not found"
-echo 
-echo "To use last value press enter"
-echo "Last value: $character"
-echo
-echo "l for list"
-echo
-read -p "Stash/$type/" character
-echo 
-
-if [[ -z $character ]]; then
-  character=$temp
-  break 
-fi
-
-case "$character" in
-  list|l) clear
-  tree -L 1 "$stashpath/$type/"
-  ;;
-  *) break 
-  ;;
-esac
-done
-
-character=${character,,}
 clear
 
-kitten icat --place 60x20@0x0 *$file*
+# ask for target file
+. $folder/$targetFile
+# $file set
 
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-
-temp=$safety
-
-while true; do
-# SFW or NSFW
-echo
-echo "SFW or NSFW?"
-echo "\"s\" & \"n\" respectively"
-echo
-echo "To use last value press enter"
-echo "Last value: $safety"
-echo
-read -p "Stash/$type/$character/" -r safety
-echo
-
-if [[ -z $safety ]]; then
-  safety=$temp
-  break
-fi
-
-safety=${safety,,}
-
-case "$safety" in
-  n) echo "NSFW"
-    safety="NSFW"
-    break
-  ;;
-  s) echo "SFW"
-    safety="SFW"
-    break
-  ;;
-  *) echo "Invalid input, try again."
-  ;;
-esac
-done
-
-safety=${safety^^} # Sets all Characters to uppercase
 clear
 
-kitten icat --place 60x20@0x0 *$file*
+# Image viewer
+. $folder/$imageViewer
 
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
+# Safety question
+. $folder/$safetyQuestion
+# $safety set
+clear
 
-temp=$extra
+# Image viewer
+. $folder/$imageViewer
 
-# Extra arguments
-echo
-tree -d "$stashpath/$type/$character/$safety/"
-echo
-echo "Extra agruments?"
-echo "Press enter if no"
-echo
-echo "To use last value input 1"
-echo "Last value: $extra"
-echo 
-read -p "Stash/$type/$character/$safety/" -r extra
+update_paths
+# Type question
+. $folder/$typeQuestion
+# $type set
 
-if [[ $safety = 1 ]]; then
-  extra=$temp
+clear
+update_paths
+
+if [[ $type = "blue archive" ]]; then
+  # Image viewer
+  . $folder/$imageViewer
+  
+  . $folder/$schoolQuestion
+  # $school set
 fi
 
+clear
+update_paths
+
+# Image viewer
+. $folder/$imageViewer
+
+# Character question
+. $folder/$characterQuestion
+# $character set
+
+clear
+update_paths
+
+# Image viewer
+. $folder/$imageViewer
+
+# Extra args
+. $folder/$extraQuestion
+# $extra set
+
+update_paths
+
+# Checks
 if [[ $character$safety = "ibukiNSFW" ]]; then
   echo "Error, this is an illegal entry, exiting..."
   exit "Cannot lewd Ibuki"
 fi
 
-mkdir -p "$stashpath/$type/$character/$safety/$extra"
-
-# Move
-if [[ -z $extra ]]; then
-  mv *$file* "$stashpath/$type/$character/$safety/"
+# Make directory
+if [[ $type = "blue archive" ]]; then
+  mkdir -p "$schoolMoveExtra"
 else
-  mv *$file* "$stashpath/$type/$character/$safety/$extra/"
+  mkdir -p "$withExtra"
 fi
 
-clear
+
+# Move
+if [[ $type = "blue archive" ]]; then
+
+  if [[ -z $extra ]]; then
+    mv *$file* "$schoolMove"
+  else
+    mv *$file* "$schoolMoveExtra"
+  fi
+
+else
+  
+  if [[ -z $extra ]]; then
+    mv *$file* "$noExtra"
+  else
+    mv *$file* "$withExtra"
+  fi
+
+fi
+
+#clear
 echo "done"
 echo
 

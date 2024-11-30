@@ -1,0 +1,23 @@
+#!/bin/bash
+kitten icat --place 60x20@0x0 *$file*
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
+echo
