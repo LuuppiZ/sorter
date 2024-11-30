@@ -18,7 +18,7 @@ temp=${temp,,}
 
 case "$temp" in
   l|list) clear
-    tree -L 1 "/home/$USER/Pictures/Stash/$safety/$type/" #Stash/SFW/blue archive/[schools here]
+    tree -L 2 "/home/$USER/Pictures/Stash/$safety/$type/" #Stash/SFW/blue archive/[schools here]
   ;;
   *)
     school=$temp # sets the read value to school variable

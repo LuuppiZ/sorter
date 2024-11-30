@@ -125,6 +125,9 @@ update_paths
 if [[ $character$safety = "ibukiNSFW" ]]; then
   echo "Error, this is an illegal entry, exiting..."
   exit "Cannot lewd Ibuki"
+elif [[ $character$safety = "kokonaNSFW" ]]; then
+  echo "Error, this is an illegal entry, exiting..."
+  exit "Cannot lewd Kokona"
 fi
 
 # Make directory
