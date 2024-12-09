@@ -4,7 +4,7 @@ while true; do
 
 # Character
 echo
-echo "Select folder (usually by character)"
+echo "Select character"
 echo "Will create a new folder if one is not found"
 echo
 echo "To use last value press enter"
