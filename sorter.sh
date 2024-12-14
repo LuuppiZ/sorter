@@ -3,7 +3,6 @@
 # Todo:
 # Option to also copy
 # Option to rename file before moving/copying
-# maybe this: https://chatgpt.com/c/675c6dc2-eebc-8005-b006-7bb04c0b6bec
 
 # Done:
 # Made per question files
