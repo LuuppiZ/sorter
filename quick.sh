@@ -7,7 +7,7 @@ case "$1" in
     echo "soter [image] [character] [safety]"
     echo ""
     echo "Using gtk file picker"
-    echo "sorter -z [character] [safety]"
+    echo "sorter -z"
     exit
   ;;
   *)
@@ -31,6 +31,7 @@ if [[ $1 = "-z" ]]; then
   for file in $(echo $movefile | tr '|' ' '); do
     echo "Moving file: \"$file\" to \"$fullpath\""
     mv $file "$fullpath/"
+    echo "File moved"
   done
 fi
 
