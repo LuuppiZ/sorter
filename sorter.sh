@@ -3,6 +3,7 @@
 # Todo:
 # Option to also copy
 # Option to rename file before moving/copying
+# maybe this: https://chatgpt.com/c/675c6dc2-eebc-8005-b006-7bb04c0b6bec
 
 # Done:
 # Made per question files
@@ -19,6 +20,7 @@ typeQuestion="typequestion.sh"
 schoolQuestion="school.sh"
 characterQuestion="characterquestion.sh"
 extraQuestion="extraquestion.sh"
+quickChoose="quick.sh"
 
 file="image.jpg"
 safety="SFW"
@@ -55,6 +57,11 @@ noExtra="$stashpath/$safety/$type/$character/"
 #treeExtra="$stashpath/$safety/$type/$character/"
 }
 update_paths
+
+if [[ -n "$1" ]]; then
+  . $folder/$quickChoose
+  exit
+fi
 
 clear
 
