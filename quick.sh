@@ -15,6 +15,7 @@ case "$1" in
 esac
 
 character=${2,,}
+dialog_character=${2^^}
 safety=${3^^}
 
 case "$safety" in
@@ -27,7 +28,7 @@ esac
 fullpath=$(find "$stashpath/$safety/$type/" -mindepth 2 -maxdepth 2 -type d -name "$character")
 
 if [[ $1 = "-z" ]]; then
-  movefile=$(zenity --file-selection --multiple --title="Select Files" --filename="$(pwd)/")
+  movefile=$(zenity --file-selection --multiple --title="Select Pictures With $dialog_character That Are $safety" --filename="$(pwd)/")
   for file in $(echo $movefile | tr '|' ' '); do
     echo "Moving file: \"$file\" to \"$fullpath\""
     mv $file "$fullpath/"
